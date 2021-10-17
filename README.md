@@ -7,7 +7,7 @@ its mainly used to generate automatic seb-exams configurations with secure defau
 Laravel 8 with php8 and enabled ext-openssl, ext-zlib
 
 ## Limititations
-Its can only be used for password-encrypted exams (client-configurations are not supported)
+Its can only be used for password-encrypted exams (client-configurations currently are not supported)
 
 ## Installation
 Install via Composer.
@@ -18,7 +18,7 @@ $ composer require ndum/laravel-seb
 
 ## Examples
 
-**_NOTE:_** For production use secure passwords and a secure seb-config!
+**_NOTE:_** For production - Please use secure passwords and a secure seb-config!
 
 ### Parameters
 
@@ -65,7 +65,7 @@ dd($encryptedSebConfig);
 ```
 
 ## Issues / Contributions
-Directly via GitHub
+Directly via [GitHub](https://github.com/ndum/laravel-seb/issues)
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE-File](LICENSE) for details
