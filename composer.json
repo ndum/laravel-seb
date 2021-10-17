@@ -1,0 +1,45 @@
+{
+    "name": "ndum/laravel-seb",
+    "description": "Laravel Package for generating encrypted SEB (Safe Exam Browser) client configurations",
+    "type": "laravel",
+    "keywords": [
+        "laravel",
+        "SEB",
+        "Safe Exam Browser",
+        "Client Configuration",
+        "xml",
+        "plist"
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-openssl": "*",
+        "ext-zlib": "*",
+        "illuminate/support": "^8.64",
+        "illuminate/collections": "^8.64",
+        "rodneyrehm/plist": "^2.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicolas D",
+            "email": "nd@nidum.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ndum\\Laravel\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+              "Ndum\\Laravel\\SebConfigGeneratorServiceProvider"
+            ],
+            "aliases": {
+                "SebConfigGenerator": "Ndum\\Laravel\\Facades\\SebConfigGenerator"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
