@@ -11,19 +11,13 @@
         "xml",
         "plist"
     ],
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/ndum/CFPropertyList"
-        }
-    ],
     "require": {
         "php": "^8.0",
         "ext-openssl": "*",
         "ext-zlib": "*",
         "illuminate/support": "^8.64",
         "illuminate/collections": "^8.64",
-        "rodneyrehm/plist": "dev-seb-fix"
+        "ndum/plist-parser": "^3.0.0"
     },
     "license": "MIT",
     "authors": [
