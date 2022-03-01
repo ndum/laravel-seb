@@ -15,7 +15,7 @@
         "php": "^8.0",
         "ext-openssl": "*",
         "ext-zlib": "*",
-        "illuminate/support": "^8.64",
+        "illuminate/support": "~8.0|~9.0",
         "illuminate/collections": "^8.64",
         "ndum/plist-parser": "^3.0.0"
     },
