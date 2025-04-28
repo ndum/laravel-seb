@@ -15,8 +15,8 @@
         "php": "^8.0",
         "ext-openssl": "*",
         "ext-zlib": "*",
-        "illuminate/support": "~8.0|~9.0|~10.0|~11.0",
-        "illuminate/collections": "~8.0|~9.0|~10.0|~11.0",
+        "illuminate/support": "~8.0|~9.0|~10.0|~11.0|~12.0",
+        "illuminate/collections": "~8.0|~9.0|~10.0|~11.0|~12.0",
         "ndum/plist-parser": "^3.0.0"
     },
     "license": "MIT",
