@@ -4,7 +4,7 @@ This Laravel-Package provides the possibility to generate encrypted [SEB](https:
 its mainly used to generate automatic seb-exams configurations with secure defaults options.
 
 ## Requirements
-Laravel 8, 9 or 10 with php8 and enabled ext-openssl, ext-zlib
+Laravel 8 or newer with php8 and enabled ext-openssl, ext-zlib
 
 ## Limititations
 Its can only be used for password-encrypted exams (client-configurations currently are not supported)
