@@ -7,30 +7,79 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  validate:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: openssl, zlib
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+  install:
+    runs-on: ubuntu-latest
+    needs: validate
+
+    strategy:
+      fail-fast: false
+      matrix:
+        laravel: ['10.*', '11.*', '12.*', '13.*']
+        php: ['8.1', '8.2', '8.3', '8.4']
+        include:
+          - laravel: '10.*'
+            illuminate-support: '~10.0'
+          - laravel: '11.*'
+            illuminate-support: '~11.0'
+          - laravel: '12.*'
+            illuminate-support: '~12.0'
+          - laravel: '13.*'
+            illuminate-support: '~13.0'
+        exclude:
+          - laravel: '10.*'
+            php: '8.4'
+          - laravel: '11.*'
+            php: '8.1'
+          - laravel: '12.*'
+            php: '8.1'
+          - laravel: '13.*'
+            php: '8.1'
+          - laravel: '13.*'
+            php: '8.2'
+
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: openssl, zlib
+          coverage: none
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-
 
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Require Laravel ${{ matrix.laravel }}
+        run: |
+          composer require --no-update --dev "laravel/framework:${{ matrix.laravel }}"
+          composer require --no-update "illuminate/support:${{ matrix.illuminate-support }}" "illuminate/collections:${{ matrix.illuminate-support }}"
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-progress --no-interaction --with-all-dependencies
 
-    # - name: Run test suite
-    #   run: composer run-script test
+      - name: Show installed Laravel version
+        run: composer show laravel/framework | grep -E '^versions'
